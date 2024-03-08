@@ -123,7 +123,7 @@ class ReglagesPage extends StatelessWidget {
                       color: Colors.purpleAccent,
                     ),
                     child: Icon(
-                      CupertinoIcons.info,
+                      Icons.announcement_outlined,
                       color: AppTheme.textColor,
                     ),
                   ),

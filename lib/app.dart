@@ -18,37 +18,41 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.black,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppTheme.black.withOpacity(0.8),
-        selectedItemColor: AppTheme.primaryColor,
-        unselectedItemColor: Colors.grey,
-        currentIndex: index,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.search),
-            label: "Rechercher",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.square_list_fill),
-            label: "Reservations",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.person_crop_circle),
-            label: "Réglages",
-          ),
-        ],
-        onTap: (value) {
-          setState(() {
-            index = value;
-          });
-        },
-      ),
-      body: [
-        const RecherchePage(),
-        const ReservationPage(),
-        const ReglagesPage(),
-      ][index],
-    );
+        backgroundColor: AppTheme.black,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: AppTheme.black.withOpacity(0.8),
+          selectedItemColor: AppTheme.primaryColor,
+          unselectedItemColor: Colors.grey,
+          currentIndex: index,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search),
+              label: "Rechercher",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.square_list_fill),
+              label: "Reservations",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.person_crop_circle),
+              label: "Réglages",
+            ),
+          ],
+          onTap: (value) {
+            setState(() {
+              if (index != value) {
+                index = value;
+              }
+            });
+          },
+        ),
+        body: IndexedStack(
+          index: index,
+          children: [
+            const RecherchePage(),
+            ReservationPage(),
+            const ReglagesPage(),
+          ],
+        ));
   }
 }

@@ -1,6 +1,6 @@
+import 'package:car_pooling/controller/reservation_controller.dart';
 import 'package:car_pooling/model/trajet.dart';
 import 'package:car_pooling/theme/app_theme.dart';
-import 'package:car_pooling/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,8 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
   late AnimationController controller;
   late Animation<Offset> slideTransition;
   Trajet trajet = Get.arguments as Trajet;
+  final ReservationsController reservationsController =
+      Get.put(ReservationsController());
 
   @override
   void initState() {
@@ -141,13 +143,19 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
                             )
                           ],
                         ),
-                        CustomButton(
-                          text: Text(
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                AppTheme.primaryColor,
+                              ),
+                              minimumSize: const MaterialStatePropertyAll<Size>(
+                                  Size(double.infinity, 50))),
+                          onPressed: () => reservationsController
+                              .addReservations(trajet: trajet),
+                          child: Text(
                             "Reserver",
                             style: AppTheme.textStyle(fontSize: 20),
                           ),
-                          height: 50,
-                          width: double.infinity,
                         )
                       ],
                     ),
