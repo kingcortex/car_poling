@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static Color black = Colors.black;
-  static Color primaryColor = const Color(0xff42f578);
+  //static Color primaryColor = const Color(0xff42f578);
+  static Color primaryColor = const Color(0xff0e76bd);
   static Color textColor = const Color(0xffffffff);
 
   static double appPading = 20;

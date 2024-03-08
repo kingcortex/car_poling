@@ -35,7 +35,7 @@ class ReglagesPage extends StatelessWidget {
                 customContainer(
                   context,
                   85,
-                  "Ezecgiel",
+                  "Dua Lipa",
                   Container(
                     height: 60,
                     width: 60,
@@ -130,7 +130,7 @@ class ReglagesPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   isTitle: false,
                 ),
-                Gap(200)
+                const Gap(160)
               ],
             ),
           ),
