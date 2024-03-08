@@ -38,6 +38,15 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^6.2.0
   gap: ^3.0.1
+  flutter_native_splash: ^2.3.13
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+color: "#FFFFFF"
+image: "assets/logo.png"
 
 dev_dependencies:
   flutter_test:

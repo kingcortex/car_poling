@@ -2,6 +2,7 @@ import 'package:car_pooling/controller/reservation_controller.dart';
 import 'package:car_pooling/theme/app_theme.dart';
 import 'package:car_pooling/widget/reservation_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class ReservationPage extends StatelessWidget {
@@ -36,11 +37,26 @@ class ReservationPage extends StatelessWidget {
             child: GetBuilder<ReservationsController>(
               builder: (controller) {
                 if (controller.reservations.isEmpty) {
-                  return Center(
-                    child: Text(
-                      "Aucune reservation",
-                      style: AppTheme.textStyle(),
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Gap(MediaQuery.of(context).size.height / 3 - 50),
+                      Icon(
+                        Icons.error,
+                        size: 40,
+                        color: AppTheme.primaryColor,
+                      ),
+                      Text(
+                        "Aucune reservation",
+                        style: AppTheme.textStyle(fontSize: 20),
+                      ),
+                      const Gap(5),
+                      Text(
+                        "Nous avons trouvé aucune réservation",
+                        style: AppTheme.textStyle(fontSize: 12),
+                      ),
+                      const Gap(5),
+                    ],
                   );
                 } else {
                   return Column(

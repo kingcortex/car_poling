@@ -79,12 +79,12 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
         ),
         child: Column(
           children: [
-            const Expanded(
-              flex: 3,
-              child: SizedBox(),
+            Expanded(
+              flex: MediaQuery.of(context).size.height < 668 ? 3 : 3,
+              child: const SizedBox(),
             ),
             Expanded(
-              flex: 4,
+              flex: MediaQuery.of(context).size.height < 668 ? 4 : 3,
               child: Stack(
                 children: [
                   Container(
@@ -123,6 +123,9 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
                                   trajet.modelCar,
                                   style: AppTheme.textStyle(fontSize: 25),
                                 ),
+                                Gap(MediaQuery.of(context).size.height < 668
+                                    ? 10
+                                    : 20),
                                 Text(
                                   "${trajet.price} XOF",
                                   style: AppTheme.textStyle(),
@@ -135,6 +138,9 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
                                   trajet.end,
                                   style: AppTheme.textStyle(),
                                 ),
+                                Gap(MediaQuery.of(context).size.height < 668
+                                    ? 10
+                                    : 20),
                                 Text(
                                   "${trajet.time} heures",
                                   style: AppTheme.textStyle(),
@@ -145,13 +151,37 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                AppTheme.primaryColor,
-                              ),
-                              minimumSize: const MaterialStatePropertyAll<Size>(
-                                  Size(double.infinity, 50))),
-                          onPressed: () => reservationsController
-                              .addReservations(trajet: trajet),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              AppTheme.primaryColor,
+                            ),
+                            minimumSize: const MaterialStatePropertyAll<Size>(
+                              Size(double.infinity, 50),
+                            ),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                          onPressed: () async {
+                            bool isOk;
+                            isOk = await displayBottomSheet(context);
+                            if (isOk) {
+                              reservationsController.addReservations(
+                                trajet: trajet,
+                              );
+                              Get.back();
+                              Get.snackbar(
+                                icon: const Icon(Icons.alarm),
+                                "Valider",
+                                "Votre reservation a été effectuer avec succès",
+                                barBlur: 20,
+                                isDismissible: true,
+                                duration: const Duration(
+                                  seconds: 3,
+                                ),
+                              );
+                            }
+                          },
                           child: Text(
                             "Reserver",
                             style: AppTheme.textStyle(fontSize: 20),
@@ -208,4 +238,95 @@ Widget customContainer({required IconData icon, required String text}) {
       ],
     ),
   );
+}
+
+Future<bool> displayBottomSheet(BuildContext context) async {
+  bool isOk = false;
+  await showModalBottomSheet(
+    isDismissible: false,
+    context: context,
+    backgroundColor: const Color.fromARGB(255, 26, 25, 25),
+    builder: (context) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 250,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Container(
+                    height: 5,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 49, 46, 46),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const Gap(20),
+            Text(
+              "Voulez vous reserver ?",
+              style: AppTheme.textStyle(fontSize: 20),
+            ),
+            const Gap(30),
+            ElevatedButton(
+              onPressed: () {
+                isOk = true;
+                Get.back();
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  AppTheme.primaryColor,
+                ),
+                overlayColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 12, 54, 82),
+                ),
+                minimumSize: const MaterialStatePropertyAll<Size>(
+                  Size(double.infinity, 50),
+                ),
+                shape: MaterialStatePropertyAll<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              child: Text(
+                "Confirmer",
+                style: AppTheme.textStyle(),
+              ),
+            ),
+            const Gap(20),
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 49, 46, 46)),
+                minimumSize: const MaterialStatePropertyAll<Size>(
+                  Size(double.infinity, 50),
+                ),
+                shape: MaterialStatePropertyAll<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              child: Text(
+                "Annuler",
+                style: AppTheme.textStyle(),
+              ),
+            )
+          ],
+        ),
+      );
+    },
+  );
+  return isOk;
 }
