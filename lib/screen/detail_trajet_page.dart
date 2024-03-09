@@ -1,6 +1,7 @@
 import 'package:car_pooling/controller/reservation_controller.dart';
 import 'package:car_pooling/model/trajet.dart';
 import 'package:car_pooling/theme/app_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -171,13 +172,20 @@ class _DetailTrajetPageState extends State<DetailTrajetPage>
                               );
                               Get.back();
                               Get.snackbar(
-                                icon: const Icon(Icons.alarm),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                colorText: AppTheme.textColor,
+                                borderRadius: 30,
+                                icon: Icon(
+                                  Icons.alarm,
+                                  color: AppTheme.textColor,
+                                ),
                                 "Valider",
                                 "Votre reservation a été effectuer avec succès",
-                                barBlur: 20,
+                                barBlur: 15,
                                 isDismissible: true,
                                 duration: const Duration(
-                                  seconds: 3,
+                                  seconds: 2,
                                 ),
                               );
                             }

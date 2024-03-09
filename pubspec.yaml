@@ -39,14 +39,21 @@ dependencies:
   google_fonts: ^6.2.0
   gap: ^3.0.1
   flutter_native_splash: ^2.3.13
+  flutter_launcher_icons: ^0.13.1
 
 flutter_native_splash:
   android: true
   ios: true
   web: false
 
-color: "#FFFFFF"
-image: "assets/logo.png"
+  color: "#080808"
+  #background_image: "assets/bg.jpg"
+  image: "assets/logo.png"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
 dev_dependencies:
   flutter_test:
